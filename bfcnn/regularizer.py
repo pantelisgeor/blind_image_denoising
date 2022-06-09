@@ -43,6 +43,11 @@ def reshape_to_2d(x):
 
 
 class SoftOrthogonalConstraintRegularizer(keras.regularizers.Regularizer):
+    """
+    Implements the soft orthogonality constraint as described in
+    Can We Gain More from Orthogonality Regularizations in Training Deep CNNs?
+    https://arxiv.org/abs/1810.09102
+    """
     def __init__(self,
                  lambda_coefficient: float = 1.0,
                  l1_coefficient: float = 0.01):
@@ -74,14 +79,43 @@ class SoftOrthogonalConstraintRegularizer(keras.regularizers.Regularizer):
             "lambda_coefficient": self._lambda_coefficient
         }
 
+# ---------------------------------------------------------------------
+
+
+class RegularizerMixer(keras.regularizers.Regularizer):
+    """
+    Combines regularizers
+    """
+    def __init__(self,
+                 regularizers: List[keras.regularizers.Regularizer]):
+        self._regularizers = regularizers
+
+    def __call__(self, x):
+        result_regularizers = None
+
+        for regularizer in self._regularizers:
+            r = regularizer(x)
+            if result_regularizers is None:
+                result_regularizers = r
+            else:
+                result_regularizers += r
+        return result_regularizers
+
+    def get_config(self):
+        return {
+            "regularizers": [
+                regularizer.get_config() for
+                regularizer in self._regularizers
+            ]
+        }
 
 # ---------------------------------------------------------------------
 
 
-def builder(
-        config: Union[str, Dict]) -> Any:
+def builder_helper(
+        config: Union[str, Dict]) -> keras.regularizers.Regularizer:
     """
-    build a regularizing function
+    build a single regularizing function
 
     :param config:
     :return:
@@ -94,9 +128,11 @@ def builder(
     if isinstance(config, str):
         regularizer_type = config.lower()
         regularizer_parameters = {}
-    else:
+    elif isinstance(config, Dict):
         regularizer_type = config.get("type", None).lower()
         regularizer_parameters = config.get("parameters", {})
+    else:
+        raise ValueError("don't know how to handle config")
 
     # --- select correct regularizer
     if regularizer_type == "l1":
@@ -108,5 +144,29 @@ def builder(
     if regularizer_type == "soft_orthogonal":
         return SoftOrthogonalConstraintRegularizer(**regularizer_parameters)
     raise ValueError(f"don't know how to handle [{regularizer_type}]")
+
+# ---------------------------------------------------------------------
+
+
+def builder(
+        config: Union[str, Dict, List]) -> Any:
+    """
+    build a single or mixed regularization function
+
+    :param config:
+    :return:
+    """
+    # --- argument checking
+    if config is None:
+        raise ValueError("config cannot be None")
+
+    # --- prepare variables
+    if isinstance(config, List):
+        regularizers = [builder_helper(config=r) for r in config]
+    else:
+        return builder_helper(config=config)
+
+    # --- mixes all the regularizes together
+    return RegularizerMixer(regularizers=regularizers)
 
 # ---------------------------------------------------------------------
