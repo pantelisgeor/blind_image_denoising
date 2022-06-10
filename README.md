@@ -64,17 +64,20 @@ several types of noise and then try to recover the original image
 
 ## Image examples
 
-* these images were gathered while training on patches of 128x128
 * we can clearly see that the model adapts well to different ranges of noise
 
-|Normal                   |  Noisy                  |  Denoised               |
-|-------------------------|-------------------------|-------------------------|
-![](images/readme/bfcnn_input_normal_2.png "normal") | ![](images/readme/bfcnn_input_noisy_2.png "noisy") |![](images/readme/bfcnn_input_denoised_2.png "denoised")|
-![](images/readme/bfcnn_input_normal_6.png "normal") | ![](images/readme/bfcnn_input_noisy_6.png "noisy") |![](images/readme/bfcnn_input_denoised_6.png "denoised")|
-![](images/readme/bfcnn_input_normal_5.png "normal") | ![](images/readme/bfcnn_input_noisy_5.png "noisy") |![](images/readme/bfcnn_input_denoised_5.png "denoised")|
-![](images/readme/bfcnn_input_normal_0.png "normal") | ![](images/readme/bfcnn_input_noisy_0.png "noisy") |![](images/readme/bfcnn_input_denoised_0.png "denoised")|
-![](images/readme/bfcnn_input_normal_3.png "normal") | ![](images/readme/bfcnn_input_noisy_3.png "noisy") |![](images/readme/bfcnn_input_denoised_3.png "denoised")|
-![](images/readme/bfcnn_input_normal_1.png "normal") | ![](images/readme/bfcnn_input_noisy_1.png "noisy") |![](images/readme/bfcnn_input_denoised_1.png "denoised")|
+Normal - Noisy - Denoised                     |
+----------------------------------------------|
+![](images/readme/bfcnn_image_0.png "normal") |
+![](images/readme/bfcnn_image_1.png "normal") |
+![](images/readme/bfcnn_image_2.png "normal") |
+![](images/readme/bfcnn_image_3.png "normal") |
+![](images/readme/bfcnn_image_4.png "normal") |
+![](images/readme/bfcnn_image_5.png "normal") |
+![](images/readme/bfcnn_image_6.png "normal") |
+![](images/readme/bfcnn_image_7.png "normal") |
+![](images/readme/bfcnn_image_8.png "normal") |
+![](images/readme/bfcnn_image_9.png "normal") |
 
 
 ## How to use (from scratch)
@@ -159,6 +162,8 @@ We also have the option to add residuals at the end of each processing levels, s
 #### [Multi-Scale Gaussian Pyramid](bfcnn/pyramid.py)
 Our addition (not in the paper) is the gaussian multi-scale pyramid
 that expands the effective receptive field without the need to add many more layers (keeping it cheap computationally).
+
+![](images/readme/gaussian_decomposition_lena.png "Gaussian Decomposition Lena")
 
 #### [Noise estimation model Multi-Scale mixer](bfcnn/model_noise_estimation.py)
 Our addition (not in the paper) is a noise estimation model that
