@@ -48,8 +48,44 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 * Image size is 1224x370 pixels
 * Need to change the last two lines in the json config files located in bfcnn/configs
 
-5) In this case the resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json config file is used and the model is saved to a test folder 
+5) In this case the 
+resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json config file is used and the model is saved to a test folder 
 * `python -m bfcnn.train --model-directory /nvme/h/pgeorgiades/data_p069/denoiser_pantelis/tests -- pipeline-config bfcnn/configs/resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json`
-
+#
 >## Working with Git
-1) Create a new branch from the cyclone branch
+A simple guide
+
+1) Create a new repository
+* `git init`
+
+2) Checkout a repository
+* `git clone /path/to/repository`
+* `git clone username@host:/path/to/repository`
+* `git clone <link>`
+
+3) Create a new branch from the cyclone branch
+* `git checkout -b <cyclone_branch>`
+
+4) Delete a branch
+* `git branch -d <cyclone_branch>`
+
+5) Pushing changes
+* `git push origin <cyclone_branch>`
+* `git remote add origin <server>`
+
+6) Update & merge
+* `git pull`
+* `git merge <branch>`
+
+
+>## Setup global configuration for github
+#
+
+1) Set Username
+* `$ git config --global user.name "John Doe"`
+2) Set Email
+* `$ git config --global user.email johndoe@example.com`
+3) Extra: If git token is in need
+* Github-->Settings-->Developer Settings-->Personal access token
+
+
