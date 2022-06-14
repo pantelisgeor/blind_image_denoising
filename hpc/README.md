@@ -50,3 +50,6 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 
 5) In this case the resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json config file is used and the model is saved to a test folder 
 * `python -m bfcnn.train --model-directory /nvme/h/pgeorgiades/data_p069/denoiser_pantelis/tests -- pipeline-config bfcnn/configs/resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json`
+
+>## Working with Git
+1) Create a new branch from the cyclone branch
