@@ -58,7 +58,7 @@ A simple guide
 1) Create a new repository
 * `git init`
 
-2) Checkout a repository
+2) Clone a repository
 * `git clone /path/to/repository`
 * `git clone username@host:/path/to/repository`
 * `git clone <link>`
@@ -68,12 +68,17 @@ A simple guide
 
 4) Delete a branch
 * `git branch -d <cyclone_branch>`
+5) Check for changes
+* `git status`
+6) Add & commit
+* `git add <filename>`
+* `git commit -m "Commit message"`
 
-5) Pushing changes
+7) Pushing changes
 * `git push origin <cyclone_branch>`
 * `git remote add origin <server>`
 
-6) Update & merge
+8) Update & merge
 * `git pull`
 * `git merge <branch>`
 
