@@ -6,7 +6,6 @@
 NOTE: The guide was compiled using conda, but same principles apply for pure python installations
 
 1) Download Miniconda and install it
-<<<<<<< HEAD
 * wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 * chmod +x Miniconda3-latest-Linux-x86_64.sh
 * Close and open another terminal to initialise conda
@@ -29,7 +28,6 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 7) Check if the package has been installed. If no errors show up, it was successfull!
 * Open a python shell
 * import bfcnn 
-=======
 * `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
 * `chmod +x Miniconda3-latest-Linux-x86_64.sh`
 * Close and open another terminal to initialise conda
@@ -52,13 +50,11 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 7) Check if the package has been installed. If no errors show up, it was successfull!
 * Open a python shell
 * `import bfcnn`
->>>>>>> a0b39a8bbd42b3734d7731792a6c02e2535c1398
 
 
 > ## Train the model (eg. test to check everything is working)
 
 1) Request a gpu interactive node (1 GPU node for 6 hours with 12 cores)
-<<<<<<< HEAD
 * salloc --gres=gpu:1 --time=6:00:00 --ntasks-per-node=12
 
 2) Load the required modules for CUDA 
@@ -67,7 +63,6 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 3) To test if tensorflow sees the GPU, open a python shell and run
 * import tensorflow as tf
 * tf.config.list_physical_devices('GPU')
-=======
 * `salloc --gres=gpu:1 --time=6:00:00 --ntasks-per-node=12`
 
 2) Load the required modules for CUDA 
@@ -76,7 +71,6 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 3) To test if tensorflow sees the GPU, open a python shell and run
 * `import tensorflow as tf`
 * `tf.config.list_physical_devices('GPU')`
->>>>>>> a0b39a8bbd42b3734d7731792a6c02e2535c1398
 * Output should contain no errors and look like -> [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
 * Close the python terminal with "exit()"
 
@@ -85,8 +79,6 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 * Need to change the last two lines in the json config files located in bfcnn/configs
 
 5) In this case the resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json config file is used and the model is saved to a test folder 
-<<<<<<< HEAD
 * python -m bfcnn.train --model-directory /nvme/h/pgeorgiades/data_p069/denoiser_pantelis/tests -- pipeline-config bfcnn/configs/resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json
 =======
 * `python -m bfcnn.train --model-directory /nvme/h/pgeorgiades/data_p069/denoiser_pantelis/tests -- pipeline-config bfcnn/configs/resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json`
->>>>>>> a0b39a8bbd42b3734d7731792a6c02e2535c1398
