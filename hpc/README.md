@@ -51,6 +51,47 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 5) In this case the 
 resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json config file is used and the model is saved to a test folder 
 * `python -m bfcnn.train --model-directory /nvme/h/pgeorgiades/data_p069/denoiser_pantelis/tests -- pipeline-config bfcnn/configs/resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json`
+
+>## Job submission
+#
+1 ) Create batch script
+
+#!/bin/bash -l
+
+#SBATCH --job-name=serial `# Job name`
+
+#SBATCH --partition=cpu `# Partition`
+
+#SBATCH --nodes=1 `# Number of nodes`
+
+#SBATCH --gres=gpu:4 `# Number of GPUs`
+
+#SBATCH --ntasks-per-node=4  `# Number of tasks`
+
+#SBATCH --output=job.%j.out `# Stdout (%j=jobId)`
+
+#SBATCH --error=job.%j.err `# Stderr (%j=jobId)`
+
+#SBATCH --time=12:00:00 `# Walltime`
+
+#SBATCH -A ops `# Accounting project`
+
+`#Load any necessary modules, in this case OpenMPI with CUDA`
+
+* module load OpenMPI/4.0.5-gcccuda-2020b
+
+* module load cuDNN/8.1.0.77-fosscuda-2020b CUDA/11.2.0
+
+* python -m bfcnn.train --model-directory /nvme/h/pgeorgiades/data_p069/denoiser_pantelis/tests --pipeline-config bfcnn/configs/resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json
+
+Launch the executable exe.out
+
+srun ./exe.out
+
+2 ) Run the script
+* `sbatch job_script.sub`
+
+
 #
 >## Working with Git
 A simple guide
@@ -92,5 +133,7 @@ A simple guide
 * `$ git config --global user.email johndoe@example.com`
 3) Extra: If git token is in need
 * Github-->Settings-->Developer Settings-->Personal access token
+
+>##
 
 
