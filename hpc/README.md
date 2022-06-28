@@ -35,9 +35,11 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 
 1) Request a gpu interactive node (1 GPU node for 6 hours with 12 cores)
 * `salloc --gres=gpu:1 --time=6:00:00 --ntasks-per-node=12`
+__ You need to re-activate your conda environment at this point__
 
 2) Load the required modules for CUDA 
 * `module load cuDNN/8.1.0.77-fosscuda-2020b CUDA/11.2.0`
+
 
 3) To test if tensorflow sees the GPU, open a python shell and run
 * `import tensorflow as tf`
