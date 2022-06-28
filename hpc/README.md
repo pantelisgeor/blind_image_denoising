@@ -8,6 +8,7 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 1) Download Miniconda and install it
 * `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
 * `chmod +x Miniconda3-latest-Linux-x86_64.sh`
+* `./Miniconda3-latest-Linux-x86_64.sh`
 * Close and open another terminal to initialise conda
 
 2) Create a virtual environment for the project
