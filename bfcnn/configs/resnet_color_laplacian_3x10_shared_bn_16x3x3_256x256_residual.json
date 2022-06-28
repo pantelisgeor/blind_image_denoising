@@ -32,15 +32,20 @@
     "checkpoints_to_keep": 3,
     "checkpoint_every": 10000,
     "visualization_number": 4,
-    "visualization_every": 4000,
-    "random_batch_iterations": 10,
+    "visualization_every": 1000,
+    "random_batch_iterations": 5,
     "random_batch_size": [256, 256, 3],
     "random_batch_min_difference": 0.1,
     "optimizer": {
-      "decay_rate": 0.95,
-      "decay_steps": 80000,
-      "learning_rate": 0.001,
-      "gradient_clipping_by_norm": 1.0
+      "gradient_clipping_by_norm": 1.0,
+      "schedule": {
+        "type": "exponential_decay",
+        "config": {
+          "decay_rate": 0.9,
+          "decay_steps": 20000,
+          "learning_rate": 0.001
+        }
+      }
     },
     "prune": {
       "start_epoch": 1,
@@ -59,7 +64,7 @@
     "nae_multiplier": 10.0
   },
   "dataset": {
-    "batch_size": 2,
+    "batch_size": 16,
     "min_value": 0,
     "max_value": 255,
     "clip_value": true,
