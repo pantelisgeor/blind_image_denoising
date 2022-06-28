@@ -34,7 +34,7 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 > ## Train the model (eg. test to check everything is working)
 
 1) Request a gpu interactive node (1 GPU node for 6 hours with 12 cores)
-* `salloc --gres=gpu:1 --time=6:00:00 --ntasks-per-node=12`
+* `salloc --gres=gpu:1 --time=6:00:00 --ntasks-per-node=12`    
 __ You need to re-activate your conda environment at this point__
 
 2) Load the required modules for CUDA 
