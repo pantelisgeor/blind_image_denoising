@@ -8,6 +8,7 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 1) Download Miniconda and install it
 * `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh`
 * `chmod +x Miniconda3-latest-Linux-x86_64.sh`
+* `./Miniconda3-latest-Linux-x86_64.sh`
 * Close and open another terminal to initialise conda
 
 2) Create a virtual environment for the project
@@ -33,10 +34,12 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 > ## Train the model (eg. test to check everything is working)
 
 1) Request a gpu interactive node (1 GPU node for 6 hours with 12 cores)
-* `salloc --gres=gpu:1 --time=6:00:00 --ntasks-per-node=12`
+* `salloc --gres=gpu:1 --time=6:00:00 --ntasks-per-node=12`    
+__ You need to re-activate your conda environment at this point__
 
 2) Load the required modules for CUDA 
 * `module load cuDNN/8.1.0.77-fosscuda-2020b CUDA/11.2.0`
+
 
 3) To test if tensorflow sees the GPU, open a python shell and run
 * `import tensorflow as tf`
@@ -50,7 +53,11 @@ NOTE: The guide was compiled using conda, but same principles apply for pure pyt
 
 5) In this case the 
 resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json config file is used and the model is saved to a test folder 
-* `python -m bfcnn.train --model-directory /nvme/h/pgeorgiades/data_p069/denoiser_pantelis/tests -- pipeline-config bfcnn/configs/resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json`
+```python
+python -m bfcnn.train
+          --model-directory /nvme/h/pgeorgiades/data_p069/denoiser_pantelis/tests 
+          --pipeline-config bfcnn/configs/resnet_color_laplacian_2x5_non_shared_bn_16x3x3_128x128_skip_input.json
+```
 
 >## Job submission
 #
