@@ -37,22 +37,10 @@ This paper provides excellent results
 
 ![](images/readme/bfcnn_noisy_1.png "single channel bias free denoising")
 
-Which can also be completely interpretable as a mask per pixel
+which can also be completely interpretable as a mask per pixel
 
 ![](images/readme/bfcnn_noisy_2.png "pixel smoothing interpretability")
 
-## Multi-Scale
-The system is trained in multiple scales by implementing ideas 
-from LapSRN (Laplacian Pyramid Super-Resolution Network) and MS-LapSRN (Multi-Scale Laplacian Pyramid Super-Resolution Network)
-
-![](images/readme/laplacian_pyramid_decomposition.png "laplacian pyramid decomposition")
-
-![](images/readme/laplacian_pyramid_recomposition.png "laplacian pyramid recomposition")
-
-## Low-Memory footprint
-By using a gaussian pyramid and a shared bias-free CNN model between each scale, 
-we can ensure that we have a small enough model to run on very small devices while ensure we
-have a big enough ERF (effective receptive field) for the task at hand.
 
 ## Corruption types
 In order to train such a model we corrupt an input image using 
@@ -64,20 +52,27 @@ several types of noise and then try to recover the original image
 
 ## Image examples
 
-* we can clearly see that the model adapts well to different ranges of noise
+The following samples are `256x256` crops from the `KITTI` dataset, 
+denoised using the `resnet_color_laplacian_3x5_non_shared_bn_16x3x3_128x128_residual` model.
 
-Normal - Noisy - Denoised                     |
-----------------------------------------------|
-![](images/readme/bfcnn_image_0.png "normal") |
-![](images/readme/bfcnn_image_1.png "normal") |
-![](images/readme/bfcnn_image_2.png "normal") |
-![](images/readme/bfcnn_image_3.png "normal") |
-![](images/readme/bfcnn_image_4.png "normal") |
-![](images/readme/bfcnn_image_5.png "normal") |
-![](images/readme/bfcnn_image_6.png "normal") |
-![](images/readme/bfcnn_image_7.png "normal") |
-![](images/readme/bfcnn_image_8.png "normal") |
-![](images/readme/bfcnn_image_9.png "normal") |
+We add truncated normal noise with different standard deviations and calculate the 
+`Mean Absolute Error (MAE)` both for the noisy images, and the denoised images. 
+The pixel range is 0-255. 
+
+We can clearly see that the model adapts well to different ranges of noise.
+
+noise (std) | MAE (noisy) | MAE (denoised) | Normal - Noisy - Denoised                     |
+---|-----|-----|----------------------------------------------|
+1  |0.65|4.33 |![](images/readme/bfcnn_image_0.png "normal") |
+5  |3.50|3.39 |![](images/readme/bfcnn_image_1.png "normal") |
+10 |6.44|5.19 |![](images/readme/bfcnn_image_2.png "normal") |
+20 |13.22|6.60 |![](images/readme/bfcnn_image_3.png "normal") |
+30 |19.84|8.46 |![](images/readme/bfcnn_image_4.png "normal") |
+40 |27.02|12.95|![](images/readme/bfcnn_image_5.png "normal") |
+50 |30.59|15.06|![](images/readme/bfcnn_image_6.png "normal") |
+60 |34.34|17.81|![](images/readme/bfcnn_image_7.png "normal") |
+70 |40.64|22.36|![](images/readme/bfcnn_image_8.png "normal") |
+80 |45.68|27.99|![](images/readme/bfcnn_image_9.png "normal") |
 
 
 ## How to use (from scratch)
@@ -90,14 +85,14 @@ Normal - Noisy - Denoised                     |
 
 ### Train
 Prepare a training configuration and train with the following command:  
-```
+```bash
 python -m bfcnn.train \ 
   --model-directory ${TRAINING_DIR} \ 
   --pipeline-config ${PIPELINE}
 ```
 ### Export
 Export to frozen graph and/or tflite with the following command:
-```
+```bash
 python -m bfcnn.export \
     --checkpoint-directory ${TRAINING_DIR} \
     --pipeline-config ${PIPELINE} \
@@ -143,6 +138,20 @@ We have used traditional (bias free) architectures.
 * resnet with sparse constraint
 * resnet with on/off per resnet block gates 
 * all the above models with multi-scale processing
+
+## Multi-Scale
+The system is trained in multiple scales by implementing ideas 
+from LapSRN (Laplacian Pyramid Super-Resolution Network) and MS-LapSRN (Multi-Scale Laplacian Pyramid Super-Resolution Network)
+
+![](images/readme/laplacian_pyramid_decomposition.png "laplacian pyramid decomposition")
+
+![](images/readme/laplacian_pyramid_recomposition.png "laplacian pyramid recomposition")
+
+## Low-Memory footprint
+By using a gaussian pyramid and a shared bias-free CNN model between each scale, 
+we can ensure that we have a small enough model to run on very small devices while ensure we
+have a big enough ERF (effective receptive field) for the task at hand.
+
 
 ### Additions
 #### [Multi-Scale Laplacian Pyramid](bfcnn/pyramid.py)
