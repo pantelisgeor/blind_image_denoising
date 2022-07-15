@@ -143,4 +143,21 @@ A simple guide
 
 >##
 
+>## Connect to Tensorboard
+#
+
+Note: Default Tensorboard port is:6006 try use other one
+
+1) ssh tunel
+* `ssh -t -t algeorgiou@cyclone.hpcf.cyi.ac.cy -L 6007:localhost:6007 ssh gpu02 -L 6007:localhost:6007`
+2) Load your modules
+* `source load_modules.sh`
+3) Connect to tensorboard
+* `tensorboard --port=6007 --logdir /nvme/h/algeorgiou/data_p069/denoiser_alex/results`
+4) Press link
+* Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
+TensorBoard 2.8.0 at http://localhost:6007/ (Press CTRL+C to quit)
+
+
+
 
